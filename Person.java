@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Person {
@@ -26,6 +27,11 @@ public abstract class Person {
     public String getEmail() {
         return email;
     }
-
-
+      
+    public static void main(String[] args) {
+    	
+    ArrayList<Adresse> Wohnort = new ArrayList<Adresse>();
+   
+    }
+   
 }
