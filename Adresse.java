@@ -1,6 +1,6 @@
 public class Adresse {
     private String ort;
-    private String straÃŸe;
+    private String straße;
     private Integer hausnummer;
     private Integer plz;
 
@@ -16,7 +16,18 @@ public class Adresse {
         return ort;
     }
 
-    public String getStraÃŸe() {
-        return straÃŸe;
+    public String getStraße() {
+        return straße;
     }
 }
+
+	public void printAdresse(adresse) {
+		System.out.println(""+adresse.hausnummer);
+		
+	}
+
+Adresse a;
+
+a.hausnummer = 14;
+
+print Adresse(a);
