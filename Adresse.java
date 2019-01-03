@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Adresse {
     private String ort;
     private String straﬂe;
@@ -19,15 +21,14 @@ public class Adresse {
     public String getStraﬂe() {
         return straﬂe;
     }
+    
+    public void printAdresse() {
+    	System.out.println("Ort:"+ort);
+    	System.out.println("Straﬂe:"+straﬂe);
+    	System.out.println("Hausnummer:"+hausnummer);
+    	System.out.println("Postleitzahl:"+plz);
+  
+    }
+    
 }
 
-	public void printAdresse(adresse) {
-		System.out.println(""+adresse.hausnummer);
-		
-	}
-
-Adresse a;
-
-a.hausnummer = 14;
-
-print Adresse(a);
