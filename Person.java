@@ -10,15 +10,18 @@ public abstract class Person {
     protected LocalDate geburtsdatum;
     protected String email;
 
+    public Adresse wohnort;
+
     DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
-    public Person(Long svnr, String vname, String nname, String gd, String email){
+    public Person(Long svnr, String vname, String nname, String gd, String email, Adresse wohnort){
         this.svnr = svnr;
         this.vname = vname;
         this.nname = nname;
         geburtsdatum = LocalDate.parse(gd, dateformat);
         this.email = email;
+        this.wohnort = wohnort;
     }
 
     public Person (){}

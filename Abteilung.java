@@ -64,6 +64,10 @@ public class Abteilung {
         return this.lliste.add(l);
     }
 
+    public boolean addKlasse(Klasse klasse){
+        return this.kliste.add(klasse);
+    }
+
     public void setAbteilungssprecher(Schueler abteilungssprecher) {
         this.abteilungssprecher = abteilungssprecher;
     }

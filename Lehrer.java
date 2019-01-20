@@ -6,9 +6,9 @@ public class Lehrer extends Mitarbeiter{
     public ArrayList<Fach> fliste;
 
 
-    public Lehrer(Long svnr, String vname, String nname, String gd, String email, String kuerzel ){
+    public Lehrer(Long svnr, String vname, String nname, String gd, String email, Adresse wohnort, String kuerzel){
 
-        super(svnr, vname, nname, gd, email);
+        super(svnr, vname, nname, gd, email, wohnort);
         this.kuerzel = kuerzel;
 
     }

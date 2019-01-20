@@ -35,7 +35,8 @@ public class Klasse {
 
         stammklasse = stk;
         abteilung = abt;
-        klassensprecher = ksp;
+        setKlassensprecher(ksp);
+
     }
 
     public String getBezeichnung() {
@@ -45,7 +46,7 @@ public class Klasse {
         return schulstufe;
     }
 
-    public float getDurchscnittsalter(){
+    public float getDurchschnittsalter(){
         int dalter = 0;
         int z = 0;
         LocalDate today = LocalDate.now();
@@ -62,30 +63,46 @@ public class Klasse {
 
     }
 
-    public void setKlassensprecher(Schueler klassensprecher) {
-        this.klassensprecher = klassensprecher;
+    public boolean setKlassensprecher(Schueler klassensprecher) {
+
+
+        boolean b = false;
+
+        for(Schueler is : schuelerSet){
+            if(is == klassensprecher){
+                b = true;
+            }
+        }
+
+        if(b) {
+            this.klassensprecher = klassensprecher;
+            return b;
+        }
+
+        return false;
     }
 
-    
+
     public boolean addSchueler(Schueler schueler) {
-        boolean ret;
         int knr = 1;
 
-        ret = schuelerSet.add(schueler);
+        if(schuelerSet.size() >= 36){
+            return false;
+        }
+
+        schuelerSet.add(schueler);
 
         for(Schueler is : schuelerSet){
             is.katalognummer = knr;
             knr++;
         }
 
-        return ret;
+        return true;
     }
 
     public Set<Schueler> getSchueler() {
         return schuelerSet;
     }
-
-
 
 
 

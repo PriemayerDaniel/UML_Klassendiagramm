@@ -9,7 +9,6 @@ public class Schule {
     public Lehrer direktor;
     public Adresse standort;
 
-    //public ArrayList<Schueler> sliste = new ArrayList<>();
 
     public ArrayList<Mitarbeiter> mliste;
     public ArrayList<Abteilung> abteilungen;
@@ -44,8 +43,8 @@ public class Schule {
     }
 
 
-    public boolean addPersonal(Long svnr, String vname, String nname, String gd, String email){
-       return mliste.add(new NichtLehrpersonal(svnr, vname, nname, gd, email));
+    public boolean addPersonal(Long svnr, String vname, String nname, String gd, String email, Adresse wohnort){
+       return mliste.add(new NichtLehrpersonal(svnr, vname, nname, gd, email, wohnort));
     }
 
     public ArrayList<Mitarbeiter> getMitarbeiter() {
@@ -63,6 +62,10 @@ public class Schule {
 
         this.direktor = kandidat;
         return false;
+    }
+
+    public void setSchulsprecher(Schueler schulsprecher) {
+        this.schulsprecher = schulsprecher;
     }
 
     public Abteilung addAbteilung (String name, String kuerzel){

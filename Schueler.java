@@ -9,9 +9,9 @@ public class Schueler extends Person implements Comparable<Schueler>{
 
     public Klasse klasse;
 
-    public Schueler(Long svnr, String vname, String nname, String gd, String email, String ed){
+    public Schueler(Long svnr, String vname, String nname, String gd, String email, Adresse wohnort, String ed){
 
-        super(svnr, vname, nname, gd, email);
+        super(svnr, vname, nname, gd, email, wohnort);
         eintrittsdatum = LocalDate.parse(ed,dateformat);
 
     }
