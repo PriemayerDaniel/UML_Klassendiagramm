@@ -28,4 +28,17 @@ public class Fach {
     public Raumtyp getRaumanforderungen() {
     	return raumanforderung;
     }
+    
+    public void setName(String name) {
+		this.name = name;
+	}
+    
+    public void setRaumanforderung(Raumtyp raumanforderung) {
+		this.raumanforderung = raumanforderung;
+	}
+    
+    public void setWochenstunden(Integer wochenstunden) {
+		this.wochenstunden = wochenstunden;
+	}
+   
 }
