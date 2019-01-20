@@ -6,7 +6,21 @@ public class Belegung {
 	//??????
 	private Lehrer lehrer;
 	private Klasse klasse;
-	private Unterrichtstagenum unterrichtstag;
+	private Unterrichtstag unterrichtstag;
+	private Raum raum;
+	private Fach fach;
+	
+	
+	//konstruktoren
+	public Belegung(int unterrichtseinh, Klasse kl, Unterrichtstag unterrichtst, Lehrer lehr, Raum RAUM, Fach FACH) {
+		unterrichtstag = unterrichtst;
+		unterrichtseinheit = unterrichtseinh;
+		klasse = kl;
+		lehrer = lehr;
+		raum = RAUM;
+		fach = FACH;
+	}
+	
 	
 	//methoden
 	public Klasse getKlasse() {
@@ -22,7 +36,3 @@ public class Belegung {
 	}
 	
 }
-unterrichtsEinheit: int
-+getWochentag(): Unterrichtstag
-+getKlasse(): Klasse
-+getLehrer(): Lehre
