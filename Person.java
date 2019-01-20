@@ -1,12 +1,27 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public abstract class Person {
     protected Long svnr;            //protected dass man darauf zugreifen kann
     protected String vname;
     protected String nname;
-    protected Date geburtsdatum;
+    protected LocalDate geburtsdatum;
     protected String email;
+
+    DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+
+    public Person(Long svnr, String vname, String nname, String gd, String email){
+        this.svnr = svnr;
+        this.vname = vname;
+        this.nname = nname;
+        geburtsdatum = LocalDate.parse(gd, dateformat);
+        this.email = email;
+    }
+
+    public Person (){}
 
     public Long getSvnr() {
         return svnr;
@@ -20,7 +35,7 @@ public abstract class Person {
         return nname;
     }
 
-    public Date getGeburtsdatum() {
+    public LocalDate getGeburtsdatum() {
         return geburtsdatum;
     }
 

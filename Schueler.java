@@ -1,17 +1,25 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Schueler extends Person{
-    private Integer katalognummer;
+public class Schueler extends Person implements Comparable<Schueler>{
+    protected Integer katalognummer;    //damit man in Klasse mit addSchueler darauf zurgreifen kann - statt setter verwendet
     private LocalDate eintrittsdatum;
-    private boolean eigenberechtigt;
 
     DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-    public Schueler(Integer knr, String ed){
+    public Klasse klasse;
 
-        katalognummer = knr;
+    public Schueler(Long svnr, String vname, String nname, String gd, String email, String ed){
+
+        super(svnr, vname, nname, gd, email);
         eintrittsdatum = LocalDate.parse(ed,dateformat);
+
+    }
+
+    @Override
+    public int compareTo(Schueler o){               //comparable interface fürs sortieren vom TreeSet -> Klassenliste in alphabetischer Reihenfolge
+
+        return this.nname.compareTo(o.nname);
 
     }
 
@@ -36,17 +44,5 @@ public class Schueler extends Person{
     }
 
 
-    public static void main(String[] args) {
-
-        DateTimeFormatter dateformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-        Schueler Dani = new Schueler(12,"12.10.2018");
-        Dani.geburtsdatum = LocalDate.parse("17.05.2000",dateformat);
-        System.out.println(Dani.eintrittsdatum);
-
-        boolean probe = Dani.isEigenberechtigt();
-        System.out.println(probe);
-
-    }
 
 }

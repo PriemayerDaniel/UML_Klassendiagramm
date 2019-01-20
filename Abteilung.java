@@ -5,25 +5,32 @@ public class Abteilung {
     private String name;
 
 
-    public ArrayList<Schueler> sliste = new ArrayList<>();
-    public ArrayList<Lehrer> lliste = new ArrayList<>();
-    public ArrayList<Klasse> kliste = new ArrayList<>();
+    public ArrayList<Lehrer> lliste;
+    public ArrayList<Klasse> kliste;
 
     public Lehrer abteilungsvorstand;
     public Schueler abteilungssprecher;
+    public Schule schule;
 
 
-    public Abteilung(String name, String kuerzel){
-        if(name.length() < 1 || kuerzel.length() < 1){
-            throw new IllegalArgumentException("Name und Kuerzel müssen einen Text enthalten");
-        }
+    public Abteilung(String name, String kuerzel, Schule schule){
+
         this.name = name;
         this.kuerzel = kuerzel;
+        this.schule = schule;
+        lliste = new ArrayList<Lehrer>();
+        kliste = new ArrayList<Klasse>();
+
 
     }
 
-    public Abteilung(){}
 
+
+
+    public String getName() {
+
+        return name;
+    }
 
 
     public String getKuerzel() {
@@ -31,23 +38,50 @@ public class Abteilung {
         return kuerzel;
     }
 
-    public String getName() {
 
-        return name;
+
+    public ArrayList<Schueler> getSchueler() {
+
+        ArrayList<Schueler> aschueler = new ArrayList<Schueler>();
+
+        for(Klasse ki : getKlassen())
+        {
+            aschueler.addAll(ki.getSchueler());
+        }
+
+        return aschueler;
+
     }
 
-    public void setAbteilungsvorstand(Lehrer l) {
-        this.abteilungsvorstand = l;
+    private ArrayList<Klasse> getKlassen() {
+
+        return kliste;
+
     }
 
     public boolean addLehrer(Lehrer l){
-        try{
-            lliste.add(l);
-            return true;
-        }
-        catch(Exception e){
-            System.out.println("Es kann nur ein Lehrer hinzugefügt werden!");
+
+        return this.lliste.add(l);
+    }
+
+    public void setAbteilungssprecher(Schueler abteilungssprecher) {
+        this.abteilungssprecher = abteilungssprecher;
+    }
+
+    public boolean setAbteilungsvorstand(Lehrer kandidat){
+
+        if(schule.direktor  == kandidat){
             return false;
         }
+
+
+        for(Abteilung abt : schule.abteilungen)
+        {
+            if(abt.abteilungsvorstand == kandidat)
+                return false;
+        }
+
+        abteilungsvorstand = kandidat;
+        return true;
     }
 }
