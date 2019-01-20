@@ -1,25 +1,32 @@
 import java.util.ArrayList;
 
+enum Raumtypenum{
+    Klassenzimmer,
+    Laborraum
+}
+
+
 public class Raum {
     
 	
 	//variablen
 	private String raumnummer;
     private int maxsitzplaetze;
-    private Raumtyp raumtyp;
+    private String raumtyp;
     public Klasse Stammklasse;
-    //private Hashtable<Sting, Belegung> blegung = new Hashtable<String, Belegung>();
+    public Belegung[][] raumb;
+
 
     //konstruktoren
     
-    public Raum(String raumN, int maxsitzpl, Raumtyp raumt, Klasse Stammkl) {
+    public Raum(String raumN, int maxsitzpl, String raumt) {
     	raumnummer = raumN;
     	maxsitzplaetze = maxsitzpl;
     	raumtyp = raumt;
-    	Stammklasse = Stammkl;
+    	raumb = new Belegung[5][10];
     }
     
-    
+    public Raum(){}
     
     //methoden
     	
@@ -31,11 +38,58 @@ public class Raum {
         return raumnummer;
     }
     
-    public Raumtyp getRaumtyp() {
+    public String getRaumtyp() {
     	return raumtyp;
     }
+
+    public void exportRaumbelegung() {
+
+        System.out.println(this.raumnummer);
+
+        String leftAlignFormat = "| %-6s | %-6s | %-6s | %-6s | %-6s|%n";
+
+        System.out.format(leftAlignFormat, "Mo", "Di", "Mi", "Do", "Fr");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.format("---------|--------|--------|--------|--------%n");
+            String Mo, Di, Mi, Do, Fr;
+
+            try {
+                Mo = raumb[0][i].getKlasse().getBezeichnung();
+            } catch (NullPointerException e) {
+                Mo = "-";
+            }
+
+            try {
+                Di = raumb[1][i].getKlasse().getBezeichnung();
+            } catch (NullPointerException e) {
+                Di = "-";
+            }
+
+            try {
+                Mi = raumb[2][i].getKlasse().getBezeichnung();
+            } catch (NullPointerException e) {
+                Mi = "-";
+            }
+
+            try {
+                Do = raumb[3][i].getKlasse().getBezeichnung();
+            } catch (NullPointerException e) {
+                Do = "-";
+            }
+
+            try {
+                Fr = raumb[4][i].getKlasse().getBezeichnung();
+            } catch (NullPointerException e) {
+                Fr = "-";
+            }
+
+            System.out.format(leftAlignFormat, Mo, Di, Mi, Do, Fr);
+        }
+    }
+
     
-    public void exportBelegung() {
+   /* public void exportBelegung() {
     	
     	for(int tag = 1; tag <= 7; tag++) {
     		
@@ -46,7 +100,7 @@ public class Raum {
     	}
     }
     
-    public Belegung getBelegung(DayOfWeek tag, int )
+    public Belegung getBelegung(DayOfWeek tag, int )*/
     
     
    // ArrayList<Fach> Faecher = new ArrayList<Fach>();

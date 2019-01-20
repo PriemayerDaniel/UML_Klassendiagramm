@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -14,6 +15,11 @@ public class Klasse {
     private Abteilung abteilung;
 
     public Set<Schueler> schuelerSet;
+    public ArrayList<Fach> fliste;
+
+    public Belegung[][] stdp;
+
+
 
 
     public Klasse(String bez, int sstf) {
@@ -21,7 +27,8 @@ public class Klasse {
         schulstufe = sstf;
 
         schuelerSet = new TreeSet<>();
-
+        fliste = new ArrayList<>();
+        stdp = new Belegung[5][10];
     }
 
     public Klasse(String bez, int sstf, Lehrer kv, Schueler s, Raum stk, Abteilung abt, Schueler ksp){
@@ -31,6 +38,8 @@ public class Klasse {
         klassenvorstand = kv;
 
         schuelerSet = new TreeSet<>();
+        fliste = new ArrayList<>();
+        stdp = new Belegung[5][10];
         schuelerSet.add(s);
 
         stammklasse = stk;
@@ -38,6 +47,154 @@ public class Klasse {
         setKlassensprecher(ksp);
 
     }
+
+    public void generateStundeplan(Fach fachvklasse){
+        int i , j , day = 0, shour = 0;
+        boolean fertig = false;
+
+            for(Lehrer abteilungslehrer : abteilung.lliste){
+                for(Fach fachvlehrer : abteilungslehrer.fliste){
+                    if(fachvlehrer == fachvklasse){
+
+                        int y;
+
+                        for(i = 0; i < 5; i++) {
+
+                            for(j = 0; j < (10-fachvklasse.getWochenstunden()+1) ; j++) {
+
+                                if((abteilungslehrer.stdp[i][j] == null) && (this.stdp[i][j] == null)) {
+
+                                    for(y = 1; y < fachvklasse.getWochenstunden(); y++) {
+                                        if((abteilungslehrer.stdp[i][j+y] == null) && (this.stdp[i][j+y] == null)) {
+                                        }
+                                        else {
+                                            y = 0;
+                                            day = 15;
+                                            shour = 15;
+                                            break;
+                                        }
+                                    }
+
+                                    if(y == fachvklasse.getWochenstunden()){
+                                        day = i;
+                                        shour = j;
+
+                                        j = 10;
+                                        i = 5;
+
+                                    }
+                                }
+                            }
+                        }
+
+
+
+                        if(fachvklasse.getRaumanforderungen().equals(stammklasse.getRaumtyp())){
+
+
+                            if((day != 15) && (shour != 15)){
+
+                                /*day--;
+                                shour--;*/
+
+                                Belegung b = new Belegung(fachvklasse.getWochenstunden(), this, abteilungslehrer,stammklasse, fachvklasse);
+                                abteilung.bliste.add(b);
+
+                                for(i = shour; i < (shour +fachvklasse.getWochenstunden()); i++){
+                                    abteilungslehrer.stdp[day][i] = b;
+                                    this.stdp[day][i] = b;
+                                    stammklasse.raumb[day][i] = b;
+                                }
+                                fertig = true;
+                                break;
+                            }
+
+                        }
+                        else{
+                            for(Raum ri: abteilung.rliste){
+
+                                if(ri.getRaumtyp() == fachvklasse.getRaumanforderungen()){
+
+
+
+                                    for(i = 0; i < 5; i++) {
+
+                                        for(j = 0; j < 10; j++) {
+
+                                            if((ri.raumb[i][j] == null) && (this.stdp[i][j] == null)) {
+
+                                                for(y = 1; y < fachvklasse.getWochenstunden(); y++) {
+
+                                                    if((ri.raumb[i][j+y] == null) && (this.stdp[i][j+y] == null)) {
+                                                    }
+                                                    else {
+                                                        y = 0;
+                                                        day = 15;
+                                                        shour = 15;
+                                                        break;
+                                                    }
+                                                }
+
+                                                if(y == fachvklasse.getWochenstunden()){
+                                                    day = i;
+                                                    shour = j;
+
+                                                    j = 10;
+                                                    i = 5;
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if((day != 15) && (shour != 15)){
+
+                                        /*day--;
+                                        shour--;*/
+
+                                        Belegung b = new Belegung(fachvklasse.getWochenstunden(), this, abteilungslehrer, ri, fachvklasse);
+                                        abteilung.bliste.add(b);
+
+                                        for(i = shour; i < shour + fachvklasse.getWochenstunden(); i++){
+                                            ri.raumb[day][i] = b;
+                                            abteilungslehrer.stdp[day][i] = b;
+                                            stdp[day][i] = b;
+
+                                        }
+                                        fertig = true;
+                                        break;
+                                    }
+
+                                }
+
+
+
+                            }
+
+
+                        }
+
+                    }
+                }
+
+                if(fertig){
+                    break;
+                }
+            }
+
+
+    }
+
+
+
+
+
+    public boolean addFach(Fach f){
+        generateStundeplan(f);
+        return fliste.add(f);
+
+    }
+
 
     public String getBezeichnung() {
         return bezeichnung;
@@ -104,28 +261,57 @@ public class Klasse {
         return schuelerSet;
     }
 
+    public void exportStundenplan(){
 
+        System.out.println(this.getBezeichnung());
 
-    /*public static void main(String[] args) {
+        String leftAlignFormat = "| %-6s | %-6s | %-6s | %-6s | %-6s|%n";
 
-        Klasse k = new Klasse();
+        System.out.format(leftAlignFormat, "Mo","Di","Mi","Do","Fr");
 
+        for(int i = 0; i < 10; i++){
+            System.out.format("---------|--------|--------|--------|--------%n");
+            String Mo, Di, Mi, Do, Fr;
 
+            try{
+                Mo = stdp[0][i].getFach().getName();
+            }
+            catch(NullPointerException e){
+                Mo = "-";
+            }
 
-        k.addSchueler(new Schueler(34123L, "Daniel", "Priemi", "10.12.2000", "dafdsyköljföaksljdf@priemfotz.at","12.12.2018"));
-        k.addSchueler(new Schueler(123123L, "Simon", "Brait", "19.12.2005", "simonsadgfsdfg@gsagasgd","10.12.2015"));
-        k.addSchueler(new Schueler(123123L, "Simon", "Casd", "19.12.2004", "simonsadgfsdfg@gsagasgd","10.12.2015"));
-        k.addSchueler(new Schueler(123123L, "Simon", "Anasdf", "19.12.2002", "simonsadgfsdfg@gsagasgd","10.12.2015"));
+            try{
+                Di = stdp[1][i].getFach().getName();
+            }
+            catch(NullPointerException e){
+                Di = "-";
+            }
 
+            try{
+                Mi = stdp[2][i].getFach().getName();
+            }
+            catch(NullPointerException e){
+                Mi = "-";
+            }
 
-        for(Schueler is : k.schuelerSet){
-            System.out.println(is.nname);
-            System.out.println(is.katalognummer);
+            try{
+                Do = stdp[3][i].getFach().getName();
+            }
+            catch(NullPointerException e){
+                Do = "-";
+            }
+
+            try{
+                Fr = stdp[4][i].getFach().getName();
+            }
+            catch(NullPointerException e){
+                Fr = "-";
+            }
+
+            System.out.format(leftAlignFormat, Mo, Di, Mi, Do, Fr);
         }
+    }
 
-        float alter = k.getDurchscnittsalter();
 
-        System.out.println(alter);
 
-    }*/
 }

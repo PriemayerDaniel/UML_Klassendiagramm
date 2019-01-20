@@ -1,13 +1,13 @@
 import java.util.Date;
 
 public abstract class  Mitarbeiter extends  Person {
-    protected static Integer anzahl;
+    protected static Integer anzahl = 0;
 
 
     public Mitarbeiter(Long svnr, String vname, String nname, String gd, String email, Adresse wohnort) {
 
         super(svnr, vname, nname, gd, email, wohnort);
-        anzahl++;
+        anzahl = anzahl+1;
     }
 
 

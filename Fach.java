@@ -3,11 +3,11 @@ public class Fach {
 	//variablen
 	private String name;
     private Integer wochenstunden;
-    private Raumtyp raumanforderung;
+    private String raumanforderung;
 
     //konstruktoren
-    public Fach(String NAME, int wochenst, Raumtyp raumanf) {
-    	name = NAME;
+    public Fach(String name, int wochenst, String raumanf) {
+    	this.name = name;
     	wochenstunden = wochenst;
     	raumanforderung = raumanf;
     	
@@ -22,10 +22,10 @@ public class Fach {
     }
 
     public Integer getWochenstunden() {
-        return wochenstundenn;
+        return wochenstunden;
     }
     
-    public Raumtyp getRaumanforderungen() {
+    public String getRaumanforderungen() {
     	return raumanforderung;
     }
     
@@ -33,7 +33,7 @@ public class Fach {
 		this.name = name;
 	}
     
-    public void setRaumanforderung(Raumtyp raumanforderung) {
+    public void setRaumanforderung(String raumanforderung) {
 		this.raumanforderung = raumanforderung;
 	}
     

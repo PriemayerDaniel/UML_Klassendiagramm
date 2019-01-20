@@ -12,6 +12,9 @@ public class Abteilung {
     public Schueler abteilungssprecher;
     public Schule schule;
 
+    public ArrayList<Belegung> bliste;
+    public ArrayList<Raum> rliste;
+
 
     public Abteilung(String name, String kuerzel, Schule schule){
 
@@ -20,9 +23,12 @@ public class Abteilung {
         this.schule = schule;
         lliste = new ArrayList<Lehrer>();
         kliste = new ArrayList<Klasse>();
-
+        bliste = new ArrayList<Belegung>();
+        rliste = new ArrayList<Raum>();
 
     }
+
+
 
 
 
@@ -74,7 +80,7 @@ public class Abteilung {
 
     public boolean setAbteilungsvorstand(Lehrer kandidat){
 
-        if(schule.direktor  == kandidat){
+        if(schule.direktor.svnr == kandidat.svnr){
             return false;
         }
 
